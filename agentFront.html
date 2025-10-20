@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pass KNBYG IQ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+        
+        .trip-planner {
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .chat-section {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .interest-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .interest-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .plan-trip-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+        
+        .plan-trip-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+            background: #fafafa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .agent-message {
+            background: white;
+            border: 1px solid #e9ecef;
+            color: #333;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .send-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .loading {
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .trip-planner {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✈️ Travel IQ</h1>
+            <p>Your AI travel expert ready to get you to your adventure!</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="trip-planner">
+                <h2>Know Before You Go</h2>
+                <form id="tripForm">
+                    <div class="form-group">
+                        <label for="destination">What passport do you hold?</label>
+                        <select id="destination" required>
+                            <option value="">Select a country</option>
+                            <option value="France">France</option>
+                            <option value="Japan">Japan</option>
+                            <option value="indonesia">Indonesia</option>
+                            <option value="italy">Italy</option>
+                            <option value="new york">USA</option>
+                            <option value="london">UK</option>
+                            <option value="canada">Canada</option>
+                            <option value="nigeria">Nigeria</option>
+                            <option value="other">Other (specify in chat)</option>
+                        </select>
+                    </div>
+
+                      <div class="form-group">
+                        <label for="travelDates">Passport Expiry Date</label>
+                        <input type="text" id="travelDates" placeholder="e.g., February 2024 or 10/02/26">
+                    </div>
+                    
+                     <form id="tripForm">
+                    <div class="form-group">
+                        <label for="destination2">Where would you like to go?</label>
+                        <select id="destination2" required>
+                            <option value="">Select a destination</option>
+                            <option value="paris">France</option>
+                            <option value="tokyo">Japan</option>
+                            <option value="bali">Indonesia</option>
+                            <option value="rome">Italy</option>
+                            <option value="new york">USA</option>
+                            <option value="london">UK</option>
+                            <option value="canada">Canada</option>
+                            <option value="nigeria">Nigeria</option>
+                            <option value="other">Other (specify in chat)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="travelDates">Travel Dates</label>
+                        <input type="text" id="travelDates" placeholder="e.g., March 2024 or Spring">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration">Trip Duration (days)</label>
+                        <input type="number" id="duration" min="1" max="30" value="7">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupSize">Number of Travelers</label>
+                        <input type="number" id="groupSize" min="1" max="10" value="2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What are your intentions? (Select all that apply)</label>
+                        <div class="intentions-grid">
+                            <div class="intentions-item">
+                                <input type="checkbox" id="culture" value="culture">
+                                <label for="culture">Business</label>
+                            </div>
+                            <div class="intentions-item">
+                                <input type="checkbox" id="food" value="food">
+                                <label for="food">Tourism</label>
+                            </div>
+                             <div class="intentions-item">
+                                <input type="checkbox" id="food" value="food">
+                                <label for="food">Visiting Family</label>
+                            </div>
+                             <div class="intentions-item">
+                                <input type="checkbox" id="food" value="food">
+                                <label for="food">Other</label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="visas"> Do you already hold a visa for your intended destination? </label>
+                        <select id="visas" name="decision" class="form-control">
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label for="decision"> Are you travelling with anyone under 16? </label>
+                        <select id="decision" name="decision" class="form-control">
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests">Special Issues or Questions:</label>
+                        <textarea id="specialRequests" rows="3" placeholder="Any specific issues, criminal restrictions, or questions?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="plan-trip-btn">
+                        🌟 Get Travel Info!
+                    </button>
+                </form>
+            </div>
+            
+            <div class="chat-section">
+                <h2>Chat with Limo</h2>
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message agent-message">
+                        <div class="agent-name">Limo 👋</div>
+                        <div>Hi there! I'm Limo, your personal passport IQ Agent. I'm so excited to help you get to your destination! Fill out the form on the left to get started, or just ask me anything about travel requirements!</div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Ask Limo anything about how to prepare for your trip..." onkeypress="handleChatKeyPress(event)">
+                    <button class="send-btn" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { BedrockAgentRuntimeClient, InvokeAgentCommand } from 'https://cdn.skypack.dev/@aws-sdk/client-bedrock-agent-runtime';
+        
+        // Replace with your actual credentials and agent ID
+        const client = new BedrockAgentRuntimeClient({
+            region: "us-east-1",
+            credentials: {
+                accessKeyId: "YOUR_ACCESS_KEY",
+                secretAccessKey: "YOUR_SECRET_KEY"
+            }
+        });
+        
+        const AGENT_ID = "YOUR_AGENT_ID";
+        const AGENT_ALIAS_ID = "TSTALIASID";
+        let sessionId = "session-" + Date.now();
+        
+        // Handle trip form submission
+        document.getElementById('tripForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                passport: document.getElementById('passport').value,
+                expiryDates: document.getElementById('expiryDates').value,
+                destination: document.getElementById('destination').value,
+                travelDates: document.getElementById('travelDates').value,
+                duration: document.getElementById('duration').value,
+                groupSize: document.getElementById('groupSize').value,
+                intentions: document.getElementById('intentions').value,
+                visas: document.getElementById('visas').value,
+                specialRequests: document.getElementById('specialRequests').value
+            };
+            
+            // Get selected interests
+            const interests = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                interests.push(cb.value);
+            });
+            
+            // Create comprehensive message for the agent
+            let message = `Hi Limo! I'd like to plan a trip with these details:\n\n`;
+            message += `🌍 Passport: ${formData.passport}\n`;
+            message += `📅 Expiry Dates: ${formData.expiryDates}\n`;
+            message += `🌍 Destination: ${formData.destination}\n`;
+            message += `📅 Travel Dates: ${formData.travelDates}\n`;
+            message += `⏰ Duration: ${formData.duration} days\n`;
+            message += `👥 Group Size: ${formData.groupSize} people\n`;
+            message += `💰 Visas: ${formData.visas}\n`;
+            if (interests.length > 0) {
+                message += `🎯 Intentions: ${intentions.join(', ')}\n`;
+            }
+            if (formData.specialRequests) {
+                message += `📝 Special Requests: ${formData.specialRequests}\n`;
+            }
+            message += `\nCan you help provide detailed recommendations on what I can do to make sure I have met all the entry requirements?`;
+            
+            await sendMessageToAgent(message);
+        });
+        
+        // Handle chat input
+        window.sendChatMessage = async function() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            input.value = '';
+            await sendMessageToAgent(message);
+        };
+        
+        window.handleChatKeyPress = function(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        };
+        
+        async function sendMessageToAgent(message) {
+            // Add user message to chat
+            addChatMessage(message, 'user');
+            
+            try {
+                // Show loading
+                addChatMessage('Limo is thinking...', 'agent', true);
+                
+                // Call Bedrock agent
+                const command = new InvokeAgentCommand({
+                    agentId: AGENT_ID,
+                    agentAliasId: AGENT_ALIAS_ID,
+                    sessionId: sessionId,
+                    inputText: message
+                });
+                
+                const response = await client.send(command);
+                
+                // Remove loading message
+                removeLoadingMessage();
+                
+                // Process the response
+                let agentResponse = "I'm sorry, I couldn't process that request.";
+                if (response.completion) {
+                    agentResponse = response.completion;
+                } else if (response.output && response.output.text) {
+                    agentResponse = response.output.text;
+                }
+                
+                // Add agent response
+                addChatMessage(agentResponse, 'agent');
+                
+            } catch (error) {
+                removeLoadingMessage();
+                addChatMessage('Sorry, I encountered an error. Please try again!', 'agent');
+                console.error('Error:', error);
+            }
+        }
+        
+        function addChatMessage(text, sender, isLoading = false) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            if (isLoading) {
+                messageDiv.className += ' loading';
+                messageDiv.id = 'loading-message';
+            }
+            
+            if (sender === 'agent') {
+                messageDiv.innerHTML = `
+                    <div class="agent-name">Emma ✈️</div>
+                    <div>${text}</div>
+                `;
+            } else {
+                messageDiv.textContent = text;
+            }
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function removeLoadingMessage() {
+            const loading = document.getElementById('loading-message');
+            if (loading) loading.remove();
+        }
+    </script>
+</body>
+</html>
+
