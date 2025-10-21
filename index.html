@@ -334,15 +334,15 @@
         
         // Replace with your actual credentials and agent ID
         const client = new BedrockAgentRuntimeClient({
-            region: "us-east-1",
+            region: M_REGION,
             credentials: {
-                accessKeyId: "YOUR_ACCESS_KEY",
-                secretAccessKey: "YOUR_SECRET_KEY"
+                accessKeyId: M_ACCESS_KEY_ID,
+                secretAccessKey: M_SECRET_ACCESS_KEY
             }
         });
         
-        const AGENT_ID = "YOUR_AGENT_ID";
-        const AGENT_ALIAS_ID = "TSTALIASID";
+        const AGENT_ID = AGENT_ID;
+        const AGENT_ALIAS_ID = AGENT_ALIAS_ID;
         let sessionId = "session-" + Date.now();
         
         // Handle trip form submission
